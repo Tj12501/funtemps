@@ -1,3 +1,3 @@
-module github.com/Tj12501/funtemps
+module funtemps
 
 go 1.19

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"funtemps/conv"
 )
 
 var fahr float64
@@ -22,14 +23,72 @@ func init() {
 func main() {
 	flag.Parse()
 
-	fmt.Println(fahr, out, funfacts)
-	fmt.Println("len(flag.Args())", len(flag.Args()))
-	fmt.Println("flag.NFlag()", flag.NFlag())
-	fmt.Println(isFlagPassed("out"))
-
 	if out == "C" && isFlagPassed("F") {
-		fmt.Println("0°F er -17.78°C")
+		fmt.Printf("%v°F er = %.2f°C", fahr, conv.FarhenheitToCelsius(fahr))
 	}
+
+	if out == "C" && isFlagPassed("K") {
+		fmt.Printf("%v°K er = %2.f°C", kelvin, conv.KelvinToCelsius(kelvin))
+	}
+
+	if out == "F" && isFlagPassed("C") {
+		fmt.Printf("%v°C er = %2.f°F", celsius, conv.CelsiusToFarhenheit(celsius))
+	}
+
+	if out == "F" && isFlagPassed("K") {
+		fmt.Printf("%v°K er = %2.f°F", kelvin, conv.KelvinToFarhenheit(kelvin))
+	}
+
+	if out == "K" && isFlagPassed("C") {
+		fmt.Printf("%v°C er = %2.f°K", celsius, conv.CelsiusToKelvin(celsius))
+	}
+
+	if out == "K" && isFlagPassed("F") {
+		fmt.Printf("%v°F er = %.2f°K", fahr, conv.FarhenheitToKelvin(fahr))
+	}
+}
+
+/*
+Kun en kopi fra dokumentasjon til fmt pakken
+%f     default width, default precision
+%9f    width 9, default precision
+%.2f   default width, precision 2
+%9.2f  width 9, precision 2
+%9.f   width 9, precision 0
+*/
+func FormatBigInteger(number float64) string {
+
+	s := fmt.Sprintf("%.f", number)
+
+	var sc string
+	var scc string
+	var neg bool
+
+	for i := len(s) - 1; i >= 0; i-- {
+		if string(s[i]) == "-" {
+			neg = true
+			continue
+		}
+		if len(sc) < 3 {
+			sc = string(s[i]) + sc
+			//fmt.Println("IF: i", i, "sc = ", sc, "len(sc) = ", len(sc))
+		} else {
+			//fmt.Println("ELSE START: scc = ", scc, "sc = ", sc)
+			scc = sc + " " + scc
+			sc = string(s[i])
+			//fmt.Println("ELSE END: scc = ", scc, "sc = ", sc)
+		}
+	}
+	//fmt.Println("len(sc) = ", len(sc), "sc = ", sc, "scc = ", scc)
+	if neg {
+		sc = "-" + sc
+	}
+	if len(scc) > 0 {
+		return sc + " " + scc[:len(scc)-1]
+	} else {
+		return sc
+	}
+
 }
 
 func isFlagPassed(name string) bool {

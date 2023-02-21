@@ -2,7 +2,6 @@ package conv
 
 import (
 	"math"
-	"reflect"
 	"testing"
 )
 
@@ -46,8 +45,8 @@ func TestFarhenheitToCelsius(t *testing.T) {
 
 	for _, tc := range tests {
 		got := FarhenheitToCelsius(tc.input)
-		if !reflect.DeepEqual(tc.want, got) {
-			t.Errorf("expected: %v, got: %v", tc.want, got)
+		if !withinTolerance(tc.want, got, 1e-2) {
+			t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
 		}
 	}
 }
@@ -67,8 +66,8 @@ func TestCelsiusToFarhenheit(t *testing.T) {
 
 	for _, tc := range tests {
 		got := CelsiusToFarhenheit(tc.input)
-		if !reflect.DeepEqual(tc.want, got) {
-			t.Errorf("expected: %v, got: %v", tc.want, got)
+		if !withinTolerance(tc.want, got, 1e-2) {
+			t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
 		}
 	}
 }
@@ -85,8 +84,8 @@ func TestCelsiusToKelvin(t *testing.T) {
 
 	for _, tc := range tests {
 		got := CelsiusToKelvin(tc.input)
-		if !reflect.DeepEqual(tc.want, got) {
-			t.Errorf("expected: %v, got: %v", tc.want, got)
+		if !withinTolerance(tc.want, got, 1e-2) {
+			t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
 		}
 	}
 }
@@ -103,8 +102,8 @@ func TestKelvinToCelsius(t *testing.T) {
 
 	for _, tc := range tests {
 		got := KelvinToCelsius(tc.input)
-		if !reflect.DeepEqual(tc.want, got) {
-			t.Errorf("expected: %v, got: %v", tc.want, got)
+		if !withinTolerance(tc.want, got, 1e-2) {
+			t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
 		}
 	}
 }
@@ -119,7 +118,7 @@ func TestFarhenheitToKelvin(t *testing.T) {
 		{input: 0, want: 255.37},
 	}
 	for _, tc := range tests {
-		got := FarhenheitToCelsius(tc.input)
+		got := FarhenheitToKelvin(tc.input)
 		if !withinTolerance(tc.want, got, 1e-2) {
 			t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
 		}
