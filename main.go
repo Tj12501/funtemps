@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"funtemps/conv"
+	"github.com/Tj12501/funtemps/conv"
 )
 
 var fahr float64
@@ -16,7 +16,7 @@ func init() {
 	flag.Float64Var(&fahr, "F", 0.0, "temperatur i fahrenheit")
 	flag.Float64Var(&kelvin, "K", 0.0, "Temperatur i kelvin")
 	flag.Float64Var(&celsius, "C", 0.0, "Temperature i celsius")
-	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
+	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - fahrenheit, K- Kelvin")
 	flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
 }
 
@@ -24,7 +24,7 @@ func main() {
 	flag.Parse()
 
 	if out == "C" && isFlagPassed("F") {
-		fmt.Printf("%v°F er = %.2f°C", fahr, conv.FarhenheitToCelsius(fahr))
+		fmt.Printf("%v°F er = %.2f°C", fahr, conv.FahrenheitToCelsius(fahr))
 	}
 
 	if out == "C" && isFlagPassed("K") {
@@ -32,11 +32,11 @@ func main() {
 	}
 
 	if out == "F" && isFlagPassed("C") {
-		fmt.Printf("%v°C er = %2.f°F", celsius, conv.CelsiusToFarhenheit(celsius))
+		fmt.Printf("%v°C er = %2.f°F", celsius, conv.CelsiusToFahrenheit(celsius))
 	}
 
 	if out == "F" && isFlagPassed("K") {
-		fmt.Printf("%v°K er = %2.f°F", kelvin, conv.KelvinToFarhenheit(kelvin))
+		fmt.Printf("%v°K er = %2.f°F", kelvin, conv.KelvinToFahrenheit(kelvin))
 	}
 
 	if out == "K" && isFlagPassed("C") {
@@ -44,7 +44,7 @@ func main() {
 	}
 
 	if out == "K" && isFlagPassed("F") {
-		fmt.Printf("%v°F er = %.2f°K", fahr, conv.FarhenheitToKelvin(fahr))
+		fmt.Printf("%v°F er = %.2f°K", fahr, conv.FahrenheitToKelvin(fahr))
 	}
 }
 
